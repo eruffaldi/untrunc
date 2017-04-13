@@ -30,6 +30,7 @@
 #define __STDC_LIMIT_MACROS 1
 #define __STDC_CONSTANT_MACROS 1
 
+
 extern "C" {
 #ifndef INT64_C
 #define INT64_C(c) (c ## LL)
@@ -40,6 +41,12 @@ extern "C" {
 #include "libavcodec/avcodec.h"
 #include "libavformat/avformat.h"
 }
+
+#if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(55,28,1)
+#define av_frame_alloc avcodec_alloc_frame   
+#endif
+
+
 
 using namespace std;
 
@@ -201,7 +208,7 @@ bool Codec::matchSample(unsigned char *start, int maxlength) {
 
 int Codec::getLength(unsigned char *start, int maxlength) {
 	if(name == "mp4a") {
-		AVFrame *frame = avcodec_alloc_frame();
+		AVFrame *frame = av_frame_alloc();
 		if(!frame)
 			throw string("Could not create AVFrame");
 		AVPacket avp;

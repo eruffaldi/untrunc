@@ -66,6 +66,7 @@ int main(int argc, char *argv[]) {
             mp4.analyze();
         }
         if(corrupt.size()) {
+            std::cout << "Doing Repair\n";
             mp4.repair(corrupt);
             mp4.saveVideo(corrupt + "_fixed.mp4");
         }

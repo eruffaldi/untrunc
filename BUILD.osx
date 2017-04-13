@@ -1,0 +1,4 @@
+
+
+ffmpeg on MacPort:
+	g++ -Iosx -o untrunc file.cpp main.cpp track.cpp atom.cpp mp4.cpp -I/opt/local/include -L/opt/local/lib -lavformat -lavcodec -lavutil
